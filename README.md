@@ -3,7 +3,7 @@
 A one-page portfolio for a fullstack software engineer, built with plain HTML and CSS
 (no build step, no frameworks, no dependencies).
 
-Live: <https://mimi-coding.github.io/portfolio/>
+Live: <https://mminuwaali.github.io/portfolio/>
 
 ## Sections
 
