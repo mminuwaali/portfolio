@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[Your Name] — Fullstack Developer</title>
+<meta name="description" content="Fullstack developer building web products end to end, with working knowledge of cloud and DevOps. [One-line intro].">
+<meta name="theme-color" content="#0a0d12">
+<style>
+  /* ============ Tokens ============ */
+  :root{
+    --bg:#080b10;
+    --bg-elev:#0d1219;
+    --surface:#111823;
+    --surface-2:#151d2a;
+    --line:#1e2836;
+    --line-strong:#2a3747;
+    --text:#e9eef5;
+    --text-soft:#c2ccd8;
+    --muted:#8b98a9;
+    --accent:#3ddc97;
+    --accent-soft:rgba(61,220,151,.12);
+    --accent-line:rgba(61,220,151,.35);
+    --blue:#5b9cff;
+
+    --r-sm:8px;
+    --r-md:12px;
+    --r-lg:18px;
+    --r-xl:24px;
+
+    --max:1140px;
+    --pad: clamp(20px, 5vw, 48px);
+    --section-y: clamp(56px, 9vw, 112px);
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth; -webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important; transition:none!important}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(60% 45% at 15% 0%, rgba(61,220,151,.10), transparent 65%),
+      radial-gradient(50% 40% at 90% 8%, rgba(91,156,255,.09), transparent 60%);
+  }
+
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  p{margin:0 0 16px}
+  p:last-child{margin-bottom:0}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+    border-radius:6px;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:var(--max);
+    margin-inline:auto;
+    padding-inline:var(--pad);
+  }
+
+  .skip{
+    position:absolute;left:-9999px;top:0;
+    background:var(--accent);color:#04241a;
+    padding:10px 16px;border-radius:0 0 var(--r-sm) 0;font-weight:600;z-index:200;
+  }
+  .skip:focus{left:0}
+
+  /* ============ Nav ============ */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(8,11,16,.72);
+    backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid transparent;
+    transition:border-color .2s ease, background-color .2s ease;
+  }
+  .nav.scrolled{border-bottom-color:var(--line); background:rgba(8,11,16,.9)}
+  .nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    min-height:68px; gap:16px;
+  }
+  .brand{
+    display:inline-flex; align-items:center; gap:10px;
+    font-weight:700; letter-spacing:-.015em; font-size:15px;
+    white-space:nowrap;
+  }
+  .brand-mark{
+    display:grid; place-items:center;
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(140deg, var(--accent), #1d9e6e);
+    color:#04241a; font-family:var(--mono); font-size:13px; font-weight:700;
+    box-shadow:0 4px 16px rgba(61,220,151,.22);
+    flex:none;
+  }
+  .nav ul{
+    display:flex; gap:2px; margin:0; padding:0; list-style:none;
+    overflow-x:auto; scrollbar-width:none;
+  }
+  .nav ul::-webkit-scrollbar{display:none}
+  .nav ul a{
+    display:inline-block; padding:8px 12px; border-radius:999px;
+    font-size:14px; color:var(--muted); white-space:nowrap;
+    transition:color .18s ease, background-color .18s ease;
+  }
+  .nav ul a:hover{color:var(--text); background:var(--surface)}
+  .nav ul a:active{background:var(--surface-2)}
+  .nav ul a[aria-current="true"]{color:var(--text); background:var(--surface)}
+
+  .nav-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    min-height:38px; padding:0 16px;
+    border-radius:999px;
+    font-size:14px; font-weight:600;
+    border:1px solid var(--line-strong);
+    color:var(--text);
+    transition:border-color .18s ease, background-color .18s ease, transform .18s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{border-color:var(--accent-line); background:var(--accent-soft); color:var(--accent)}
+  .nav-cta:active{transform:translateY(1px)}
+  .nav-cta .dot{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 3px rgba(61,220,151,.16);
+  }
+
+  /* ============ Hero ============ */
+  .hero{
+    padding-block: clamp(44px, 8vw, 96px) clamp(40px, 6vw, 72px);
+    display:grid;
+    grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+    gap: clamp(32px, 6vw, 72px);
+    align-items:center;
+  }
+  .status{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:6px 12px 6px 10px;
+    border:1px solid var(--accent-line);
+    background:var(--accent-soft);
+    border-radius:999px;
+    font-size:12.5px; letter-spacing:.02em;
+    color:#a9f0cd;
+    margin-bottom:20px;
+  }
+  .status .pulse{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    animation:pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(61,220,151,.5)}
+    70%{box-shadow:0 0 0 7px rgba(61,220,151,0)}
+    100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}
+  }
+
+  h1{
+    font-size:clamp(2rem, 5.6vw, 3.5rem);
+    line-height:1.06;
+    letter-spacing:-.035em;
+    margin:0 0 18px;
+    font-weight:700;
+  }
+  h1 .accent{color:var(--accent)}
+  .role{
+    font-family:var(--mono);
+    font-size:clamp(12.5px, 2.4vw, 14px);
+    color:var(--muted);
+    letter-spacing:.01em;
+    margin:0 0 14px;
+    display:block;
+  }
+  .intro{
+    color:var(--text-soft);
+    font-size:clamp(1rem, 2.1vw, 1.1rem);
+    max-width:52ch;
+    margin:0 0 30px;
+  }
+  .actions{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:32px}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    min-height:46px; padding:0 22px;
+    border-radius:999px;
+    font-size:15px; font-weight:600;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary{
+    background:var(--accent); color:#04241a;
+    box-shadow:0 6px 24px rgba(61,220,151,.18);
+  }
+  .btn-primary:hover{background:#57e7a9; box-shadow:0 8px 30px rgba(61,220,151,.28)}
+  .btn-primary:active{transform:translateY(1px)}
+  .btn-ghost{border-color:var(--line-strong); color:var(--text); background:transparent}
+  .btn-ghost:hover{border-color:#3a4a5e; background:var(--surface)}
+  .btn-ghost:active{transform:translateY(1px)}
+  .btn svg{flex:none}
+
+  .stack-row{
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  }
+  .stack-row .label{margin-right:2px}
+  .stack-row .sep{color:#2f3b4a}
+
+  /* Terminal card */
+  .term{
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    background:linear-gradient(180deg, #0f1620, #0b1017);
+    overflow:hidden;
+    box-shadow:0 24px 60px -24px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02) inset;
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 14px;
+    border-bottom:1px solid var(--line);
+    background:#0c121a;
+  }
+  .term-bar i{width:10px;height:10px;border-radius:50%;background:#2b3644; display:block}
+  .term-bar i:nth-child(1){background:#e05a5a}
+  .term-bar i:nth-child(2){background:#e0b34a}
+  .term-bar i:nth-child(3){background:#4bbf7f}
+  .term-bar span{
+    margin-left:auto; font-family:var(--mono); font-size:11.5px; color:#5d6b7c;
+  }
+  .term-body{
+    padding:18px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:1.85;
+    color:#b8c4d2;
+    overflow-x:auto;
+  }
+  .term-body .c-key{color:#7ec4ff}
+  .term-body .c-str{color:#9ce8b8}
+  .term-body .c-num{color:#f2b16d}
+  .term-body .c-cmt{color:#55637a}
+  .term-body .c-p{color:var(--accent)}
+  .term-body .row{white-space:pre}
+
+  /* ============ Section shell ============ */
+  section{padding-block:var(--section-y)}
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:20px; flex-wrap:wrap;
+    margin-bottom:36px;
+  }
+  .kicker{
+    font-family:var(--mono); font-size:12px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--accent);
+    margin:0 0 10px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .kicker::before{content:""; width:22px; height:1px; background:var(--accent-line)}
+  h2{
+    font-size:clamp(1.5rem, 3.4vw, 2rem);
+    letter-spacing:-.025em; line-height:1.15;
+    margin:0; font-weight:700;
+  }
+  .section-note{color:var(--muted); font-size:14.5px; margin:0; max-width:42ch}
+
+  /* ============ Projects ============ */
+  .projects{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:20px;
+  }
+  .card{
+    position:relative;
+    display:flex; flex-direction:column;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    overflow:hidden;
+    transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:var(--line-strong);
+    box-shadow:0 20px 44px -22px rgba(0,0,0,.85);
+  }
+  .card-media{
+    aspect-ratio:16/10; overflow:hidden;
+    background:#0a1017;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .card-media img{width:100%;height:100%;object-fit:cover; transition:transform .4s ease}
+  .card:hover .card-media img{transform:scale(1.035)}
+  .card-media .badge{
+    position:absolute; top:12px; left:12px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em;
+    padding:4px 9px; border-radius:6px;
+    background:rgba(8,11,16,.82);
+    border:1px solid var(--line-strong);
+    color:#c3cedb;
+    backdrop-filter:blur(6px);
+  }
+  .card-body{padding:20px; display:flex; flex-direction:column; gap:10px; flex:1}
+  .card h3{margin:0; font-size:1.0625rem; letter-spacing:-.015em; font-weight:650; line-height:1.3}
+  .card p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.6}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:2px}
+  .tag{
+    font-family:var(--mono); font-size:11.5px;
+    color:#a8b6c6; background:#0e151d;
+    border:1px solid var(--line);
+    border-radius:6px; padding:3px 8px;
+  }
+  .card-link{
+    margin-top:auto; padding-top:16px;
+    font-size:13.5px; font-weight:600; color:var(--accent);
+    display:inline-flex; align-items:center; gap:6px;
+    align-self:flex-start;
+  }
+  .card-link svg{transition:transform .18s ease}
+  .card-link:hover svg{transform:translateX(3px)}
+  .card-link::after{content:""; position:absolute; inset:0}
+
+  /* ============ About + Skills ============ */
+  .about-grid{
+    display:grid;
+    grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items:start;
+  }
+  .about-card{
+    border:1px solid var(--line);
+    border-radius:var(--r-xl);
+    background:var(--surface);
+    padding: clamp(20px, 3vw, 28px);
+    display:grid; gap:18px;
+  }
+  .portrait{
+    width:100%; aspect-ratio:1/1;
+    border-radius:var(--r-lg);
+    overflow:hidden;
+    border:1px solid var(--line);
+    background:#0a1017;
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover}
+  .facts{list-style:none; margin:0; padding:0; display:grid; gap:10px; font-size:13.5px}
+  .facts li{display:flex; justify-content:space-between; gap:12px; padding-bottom:10px; border-bottom:1px solid var(--line)}
+  .facts li:last-child{border-bottom:0; padding-bottom:0}
+  .facts .k{color:var(--muted); font-family:var(--mono); font-size:12px; letter-spacing:.02em}
+  .facts .v{color:var(--text-soft); text-align:right; font-weight:500}
+
+  .about-copy p{color:var(--text-soft); max-width:62ch}
+  .about-copy strong{color:var(--text); font-weight:600}
+
+  .skills{
+    display:grid; gap:18px;
+    margin-top:28px;
+  }
+  .skill-group{
+    border:1px solid var(--line);
+    border-radius:var(--r-md);
+    background:var(--bg-elev);
+    padding:16px 18px;
+  }
+  .skill-group h3{
+    margin:0 0 10px;
+    font-family:var(--mono);
+    font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
+    display:flex; align-items:center; gap:8px;
+  }
+  .skill-group h3::before{
+    content:""; width:5px; height:5px; border-radius:50%; background:var(--accent);
+  }
+  .skill-group .tag{margin:0 4px 4px 0; display:inline-block}
+
+  /* ============ Contact ============ */
+  .contact{
+    position:relative;
+    border:1px solid var(--line);
+    border-radius:var(--r-xl);
+    padding: clamp(28px, 5vw, 52px);
+    background:
+      radial-gradient(80% 130% at 100% 0%, rgba(61,220,151,.10), transparent 62%),
+      radial-gradient(70% 120% at 0% 100%, rgba(91,156,255,.08), transparent 60%),
+      var(--surface);
+    overflow:hidden;
+  }
+  .contact h2{margin-bottom:12px}
+  .contact > p{color:var(--text-soft); max-width:54ch; margin-bottom:28px}
+  .contact-links{display:flex; flex-wrap:wrap; gap:10px}
+  .contact-links a{
+    display:inline-flex; align-items:center; gap:9px;
+    min-height:46px; padding:0 18px;
+    border:1px solid var(--line-strong);
+    border-radius:999px;
+    font-size:14px; font-weight:500;
+    transition:border-color .18s ease, background-color .18s ease, transform .18s ease;
+  }
+  .contact-links a:hover{border-color:var(--accent-line); background:var(--accent-soft); color:var(--accent)}
+  .contact-links a:active{transform:translateY(1px)}
+  .contact-links svg{color:var(--muted)}
+  .contact-links a:hover svg{color:var(--accent)}
+
+  footer{
+    border-top:1px solid var(--line);
+    margin-top: clamp(40px, 7vw, 80px);
+    padding-block:28px 40px;
+    color:var(--muted);
+    font-size:13px;
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    align-items:center;
+  }
+  footer .mono{font-family:var(--mono); font-size:12px}
+  .to-top{
+    display:inline-flex; align-items:center; gap:6px;
+    color:var(--muted);
+    transition:color .18s ease;
+  }
+  .to-top:hover{color:var(--accent)}
+
+  /* ============ Responsive ============ */
+  @media (max-width: 980px){
+    .projects{grid-template-columns:repeat(2, minmax(0,1fr))}
+    .about-grid{grid-template-columns:1fr}
+    .about-card{grid-template-columns:140px 1fr; align-items:start; gap:20px}
+    .about-card .facts{grid-column:1 / -1}
+  }
+
+  @media (max-width: 860px){
+    .hero{grid-template-columns:1fr; gap:32px}
+    .term{order:2}
+    .nav ul{display:none}
+    .nav .wrap{min-height:60px}
+  }
+
+  @media (max-width: 760px){
+    .projects{grid-template-columns:1fr}
+    .about-card{grid-template-columns:1fr}
+    .portrait{max-width:200px; aspect-ratio:1/1; border-radius:50%}
+    .actions .btn{flex:1 1 160px}
+    .section-head{margin-bottom:28px}
+    .contact-links a{flex:1 1 100%; justify-content:flex-start}
+    footer{flex-direction:column; align-items:flex-start; gap:8px}
+  }
+
+  @media (max-width: 400px){
+    .nav .wrap{gap:8px}
+    .nav-cta{padding:0 12px; font-size:13px}
+    .brand{font-size:14px}
+    .term-body{font-size:11.5px; padding:14px}
+    .status{font-size:11.5px}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      [Your Name]
+    </a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="#contact"><span class="dot" aria-hidden="true"></span>Open to work</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap" id="top">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="status"><span class="pulse" aria-hidden="true"></span>Available for freelance &amp; full-time</p>
+        <p class="role">Fullstack Developer · [City, Country]</p>
+        <h1 id="hero-title">Hi, I’m [Your Name] — I build web apps <span class="accent">end to end</span>.</h1>
+        <p class="intro">[One-line intro — e.g. “I turn product ideas into fast, reliable web apps: React on the front, Node and Postgres behind, deployed on AWS with CI/CD from day one.”]</p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="#work">
+            View projects
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#contact">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Get in touch
+          </a>
+        </div>
+
+        <p class="stack-row">
+          <span class="label">//</span>
+          <span>TypeScript</span><span class="sep">·</span>
+          <span>React</span><span class="sep">·</span>
+          <span>Node</span><span class="sep">·</span>
+          <span>Postgres</span><span class="sep">·</span>
+          <span>Docker</span><span class="sep">·</span>
+          <span>AWS</span>
+        </p>
+      </div>
+
+      <div class="term" role="img" aria-label="Terminal window showing a short profile as a JSON object">
+        <div class="term-bar" aria-hidden="true">
+          <i></i><i></i><i></i>
+          <span>~/profile.json</span>
+        </div>
+        <div class="term-body" aria-hidden="true">
+<div class="row">{</div>
+<div class="row">  <span class="c-key">"name"</span>: <span class="c-str">"[Your Name]"</span>,</div>
+<div class="row">  <span class="c-key">"role"</span>: <span class="c-str">"fullstack_dev"</span>,</div>
+<div class="row">  <span class="c-key">"years"</span>: <span class="c-num">[3]</span>,</div>
+<div class="row">  <span class="c-key">"focus"</span>: [</div>
+<div class="row">    <span class="c-str">"web apps"</span>,</div>
+<div class="row">    <span class="c-str">"apis"</span>,</div>
+<div class="row">    <span class="c-str">"cloud + ci/cd"</span></div>
+<div class="row">  ],</div>
+<div class="row">  <span class="c-key">"cloud"</span>: <span class="c-str">"aws · docker"</span>,</div>
+<div class="row">  <span class="c-key">"open_to_work"</span>: <span class="c-p">true</span></div>
+<div class="row">}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Projects ============ -->
+    <section id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Selected work</p>
+          <h2 id="work-title">Projects</h2>
+        </div>
+        <p class="section-note">Three sample projects — replace with your own case studies.</p>
+      </div>
+
+      <div class="projects">
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/project-1.svg" alt="Placeholder screenshot for Project One" width="800" height="500" loading="lazy">
+            <span class="badge">SaaS</span>
+          </div>
+          <div class="card-body">
+            <h3>Project One</h3>
+            <p>[What it is, who it’s for, and the one thing that made it work.]</p>
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">Node</span>
+              <span class="tag">Postgres</span>
+            </div>
+            <a class="card-link" href="#">
+              Case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/project-2.svg" alt="Placeholder screenshot for Project Two" width="800" height="500" loading="lazy">
+            <span class="badge">API / Platform</span>
+          </div>
+          <div class="card-body">
+            <h3>Project Two</h3>
+            <p>[What it is, who it’s for, and the one thing that made it work.]</p>
+            <div class="tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Fastify</span>
+              <span class="tag">Redis</span>
+            </div>
+            <a class="card-link" href="#">
+              Case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media">
+            <img src="assets/project-3.svg" alt="Placeholder screenshot for Project Three" width="800" height="500" loading="lazy">
+            <span class="badge">DevOps</span>
+          </div>
+          <div class="card-body">
+            <h3>Project Three</h3>
+            <p>[What it is, who it’s for, and the one thing that made it work.]</p>
+            <div class="tags">
+              <span class="tag">Docker</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">AWS</span>
+            </div>
+            <a class="card-link" href="#">
+              Case study
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ About ============ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">About</p>
+          <h2 id="about-title">Who I am</h2>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="portrait">
+            <img src="assets/hero.svg" alt="Placeholder for a portrait photo of [Your Name]" width="900" height="700" loading="lazy">
+          </div>
+          <ul class="facts">
+            <li><span class="k">role</span><span class="v">Fullstack Developer</span></li>
+            <li><span class="k">based</span><span class="v">[City, Country]</span></li>
+            <li><span class="k">experience</span><span class="v">[3] years</span></li>
+            <li><span class="k">focus</span><span class="v">Web apps &amp; cloud</span></li>
+          </ul>
+        </div>
+
+        <div class="about-copy">
+          <p>[Two or three sentences about what you build and who you build it for. Say what you’re good at and the kind of problem you like — <strong>e.g. “I build web apps that stay simple as they grow: clear data models, tested APIs, and interfaces people don’t have to be taught.”</strong>]</p>
+          <p>I work across the whole stack — <strong>React and TypeScript</strong> on the front end, <strong>Node, Postgres and REST</strong> behind it — and I’m comfortable taking a feature from a rough sketch to a running deployment. On the cloud side I work with <strong>Docker, CI/CD pipelines and AWS basics</strong>: containers, static hosting, a database, and logs I can actually read when something breaks.</p>
+          <p>[Optional: where you’ve worked, what you’re learning now, or what you’re looking for next.]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Stack ============ -->
+    <section id="stack" aria-labelledby="stack-title">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Toolkit</p>
+          <h2 id="stack-title">What I work with</h2>
+        </div>
+        <p class="section-note">Edit, add or remove tags to match your real experience.</p>
+      </div>
+
+      <div class="skills">
+        <div class="skill-group">
+          <h3>Frontend</h3>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind</span>
+          <span class="tag">Accessibility</span>
+        </div>
+
+        <div class="skill-group">
+          <h3>Backend</h3>
+          <span class="tag">Node.js</span>
+          <span class="tag">Express / Fastify</span>
+          <span class="tag">REST</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Auth / JWT</span>
+          <span class="tag">Testing</span>
+        </div>
+
+        <div class="skill-group">
+          <h3>Cloud &amp; DevOps</h3>
+          <span class="tag">Docker</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">AWS (EC2, S3, RDS)</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Monitoring</span>
+        </div>
+
+        <div class="skill-group">
+          <h3>Ways of working</h3>
+          <span class="tag">Git</span>
+          <span class="tag">Code review</span>
+          <span class="tag">Agile</span>
+          <span class="tag">Figma handoff</span>
+          <span class="tag">Docs</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="contact">
+        <p class="kicker">Contact</p>
+        <h2 id="contact-title">Let’s build something</h2>
+        <p>Have a project, a role, or just a question? Email is the fastest way to reach me — I usually reply within a day.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            hello@example.com
+          </a>
+          <a href="#" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4z"/></svg>
+            LinkedIn
+          </a>
+          <a href="#" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+            GitHub
+          </a>
+          <a href="assets/[your-cv].pdf" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
+            Résumé
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>© <span id="year">2025</span> [Your Name] · Fullstack Developer</span>
+      <span class="mono">hand-built · no frameworks</span>
+      <a class="to-top" href="#top">
+        Back to top
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </footer>
+  </div>
+</main>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Nav border on scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function(){
+    nav.classList.toggle('scrolled', window.scrollY > 8);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Highlight the section you're in
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav ul a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        links.forEach(function(a){
+          a.setAttribute('aria-current', a.getAttribute('href') === '#' + entry.target.id ? 'true' : 'false');
+        });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){ if (s) io.observe(s); });
+  }
+</script>
+</body>
+</html>
