@@ -1,15 +1,24 @@
-# [Your Name] — Portfolio
+# Muhammad Muhammad Inuwa — Portfolio
 
-A one-page portfolio site for a fullstack developer, built with plain HTML and CSS
+A one-page portfolio for a fullstack software engineer, built with plain HTML and CSS
 (no build step, no frameworks, no dependencies).
+
+Live: <https://mimi-coding.github.io/portfolio/>
 
 ## Sections
 
-- **Hero** — name, role, one-line intro, and a terminal card showing a short profile as JSON
-- **Projects** — three project cards with category badge, description and tech tags
-- **About** — portrait card with quick facts, plus a short bio
-- **Stack** — grouped toolkit: frontend, backend, cloud & DevOps, ways of working
-- **Contact** — email, LinkedIn, GitHub and résumé links
+- **Hero** — name, role, positioning line, and a terminal card showing a short profile as JSON
+- **Projects** — BuildStock, Noma inventory platform, and VueBoard
+- **About** — portrait, quick facts, and a short bio
+- **Stack** — grouped toolkit: frontend, backend, data, cloud & DevOps, ways of working
+- **Experience** — Coave (Frontend Team Lead), Kwari E-Market, and earlier work
+- **Contact** — email, LinkedIn, GitHub and résumé
+
+## Content sources
+
+Everything on the page was taken from the GitHub profile README at
+<https://github.com/mminuwaali/mminuwaali>, plus the public repo metadata
+(homepages, descriptions) and the avatar from <https://github.com/mminuwaali>.
 
 ## Run it locally
 
@@ -21,34 +30,16 @@ python3 -m http.server 8000
 
 Then visit <http://localhost:8000>.
 
-## Make it yours
+## Keeping it current
 
-Everything meant to be replaced is in square brackets in `index.html`:
-
-| Placeholder | Where |
+| What | Where |
 | --- | --- |
-| `[Your Name]` | page title, nav brand, hero, about card, footer |
-| `[City, Country]` | hero role line, about facts |
-| `[One-line intro]` | hero paragraph |
-| `[3] years` | terminal card, about facts |
-| `[What it is, who it's for, …]` | each of the three project cards |
-| `hello@example.com` | contact section |
-| `#` on LinkedIn / GitHub | contact section hrefs |
-
-### Images
-
-Replace the files in `assets/` (keeping the filenames, or update the `src` in the HTML):
-
-- `assets/hero.svg` — portrait. Square-ish crops best; it is a circle on mobile.
-- `assets/project-1.svg`, `project-2.svg`, `project-3.svg` — project screenshots, 16:10.
-
-### Résumé
-
-Drop your PDF in `assets/` and update the download link in the contact section:
-
-```html
-<a href="assets/your-cv.pdf" download>
-```
+| Bio, facts, experience | `index.html` — `#about`, `#experience` |
+| Projects | `index.html` — `#work` (title, description, tags, link) |
+| Stack tags | `index.html` — `#stack` |
+| Email / LinkedIn / GitHub | `index.html` — `#contact` |
+| Résumé PDF | put the file in `assets/` and update the download link |
+| Portrait | `assets/avatar.jpg` (square, 460×460) |
 
 ## Design notes
 
@@ -59,6 +50,4 @@ Drop your PDF in `assets/` and update the download link in the contact section:
 
 ## Deploying
 
-It is a static site, so any static host works: GitHub Pages, Netlify, Cloudflare Pages
-or an S3 bucket. For GitHub Pages, go to **Settings → Pages** and set the source to
-`main` / root.
+Static site — GitHub Pages serves `main` / root. `.nojekyll` keeps files served as-is.
